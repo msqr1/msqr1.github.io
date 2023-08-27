@@ -1,2 +1,2 @@
-# msqr1.github.io
-Just a place to showcase my achievements.
+# Achievement archive
+1. [Translated tic-tac-toe blog](/Translated-tictactoe-blog)
