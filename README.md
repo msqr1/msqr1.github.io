@@ -1,4 +1,4 @@
 # Achievement archive
-1. [Translated tic-tac-toe blog](/Translated-tictactoe-blog)
-2. [Cypress HS Freshman English department nomination](/English1-nomination)
-3. [First place MIRE program](/First-place-MIRE)
+1. [Translated Steam for Vietnam tic-tac-toe blog](/Translated-SV-tictactoe-blog)
+2. [Cypress High School English 1 award](/CHS-English1-award)
+3. [First place MIRE Summer 2023](/First-place-MIRE-Summer2023)
