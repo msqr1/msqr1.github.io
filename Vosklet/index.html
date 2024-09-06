@@ -86,30 +86,26 @@
         <div>
           <label for="langPick">Language:</label>
           <select id="langPick">
-            <option value="vosk-model-small-en-us-0.15">English</option>
-            <option value="vosk-model-small-en-in-0.4">Indian English</option>
-            <option value="vosk-model-small-cn-0.22">Chinese</option>
-            <option value="vosk-model-small-ru-0.22">Russian</option>
-            <option value="vosk-model-small-fr-0.22">French</option>
-            <option value="vosk-model-small-de-0.15">German</option>
+            <option value="vosk-model-small-en-us-0.15 ">English</option>
+            <option value="vosk-model-small-en-in-0.4 ">Indian English</option>
+            <option value="vosk-model-small-cn-0.3 ">Chinese</option>
+            <option value="vosk-model-small-ru-0.4 ">Russian</option>
+            <option value="vosk-model-small-fr-pguyot-0.3 ">French</option>
+            <option value="vosk-model-small-de-0.15 ">German</option>
+            <option value="vosk-model-small-ca-0.4 ">Catalan</option>
+            <option value="vosk-model-small-pt-0.3 ">Portuguese</option>
+            <option value="vosk-model-small-tr-0.3 ">Turkish</option>
+            <option value="vosk-model-small-it-0.4 ">Italian</option>
             <option value="vosk-model-small-es-0.42">Spanish</option>
-            <option value="vosk-model-small-pt-0.3">Portuguese</option>
-            <option value="vosk-model-small-tr-0.3">Turkish</option>
             <option value="vosk-model-small-vn-0.4">Vietnamese</option>
-            <option value="vosk-model-small-it-0.22">Italian</option>
             <option value="vosk-model-small-nl-0.22">Dutch</option>
-            <option value="vosk-model-small-ca-0.4">Catalan</option>
             <option value="vosk-model-small-fa-0.5">Farsi</option>
-            <option value="vosk-model-small-uk-v3-nano">Ukrainian</option>
             <option value="vosk-model-small-kz-0.15">Kazakh</option>
             <option value="vosk-model-small-ja-0.22">Japanese</option>
-            <option value="vosk-model-small-eo-0.42">Esperanto</option>
             <option value="vosk-model-small-hi-0.22">Hindi</option>
             <option value="vosk-model-small-cs-0.4-rhasspy">Czech</option>
-            <option value="vosk-model-small-pl-0.22">Polish</option>
             <option value="vosk-model-small-uz-0.22">Uzbek</option>
             <option value="vosk-model-small-ko-0.22">Korean</option>
-            <option value="vosk-model-br-0.8">Breton</option>
             <option value="vosk-model-small-tg-0.22">Tajik</option>
           </select>
           <button id="loadBtn">Load</button>
@@ -236,7 +232,9 @@
         loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = true
         let id = langPick.value
         let path = langPick.selectedOptions[0].text
-        let URL = `Models/${id}.tar.gz`
+        let fromVbr = id.endsWith(" ")
+        if(fromVbr) id = id.slice(0, -1)
+        let URL = `https://${fromVbr ? "ccoreily.github.io/vosk-browser" : "msqr1.github.io"}/models/${id}`
         if (model != null) {
           recognizer.removeEventListener("result", onResult)
           recognizer.removeEventListener("partialResult", onPartial)
