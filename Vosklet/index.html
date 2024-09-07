@@ -4,6 +4,7 @@
   <head>
     <title>Vosklet Demo</title>
     <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@1.1.4/Examples/Vosklet.min.js" defer></script>
+    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico">
     <style>
       body {
         font-size: 1.3rem;
@@ -27,14 +28,16 @@
       #micOn, #cacheTbl {
         display: none;
       }
-      h1, h3 {
+      h1, h3, #info {
         text-align: center;
+      }
+      #info {
+        margin: 0 0 3.5rem 0;
       }
       #result {
         border: 1px solid grey;
         width: 100%;
         overflow-wrap: break-word;
-        white-space: normal;
         min-height: 1.56rem;
       }
       #result > span {
@@ -50,12 +53,14 @@
       }
       #flexbox > div {
         width: 100%;
-        @media (width > 991px) {
+      }
+      @media (width > 991px) {
+        #flexbox > div {
           width: calc(50% - var(--gap) / 2);
         }
       }
       #flexbox > div > div {
-        margin-bottom: 1.2rem;
+        margin: 0 0 1.2rem 0;
       }
       table {
         background: #000;
@@ -77,6 +82,7 @@
   </head>
   <body>
     <h1>Vosklet 1.1.4 Demo</h1>
+    <div id="info"><a href="https://github.com/msqr1/Vosklet">Github Repository</a> (Give a 🌟 if you enjoy!)</div>
     <div id="flexbox">
       <div>
         <h3>Speech Recognition</h3>
@@ -93,6 +99,7 @@
             <option value="vosk-model-small-pt-0.3_">Portuguese</option>
             <option value="vosk-model-small-tr-0.3_">Turkish</option>
             <option value="vosk-model-small-it-0.4_">Italian</option>
+            <option value="vosk-model-malayalam-bigram_">Malayam</option>
             <option value="vosk-model-small-es-0.42">Spanish</option>
             <option value="vosk-model-small-vn-0.4">Vietnamese</option>
             <option value="vosk-model-small-nl-0.22">Dutch</option>
@@ -107,16 +114,16 @@
           </select>
           <button id="loadBtn">Load</button>
           <label for="cacheBtn">Show model cache: </label>
-          <input id="cacheBtn" type="checkbox">
+          <input id="cacheBtn" type="checkbox" autocomplete="off">
         </div>
         <div>
           <label for="spkBtn">Toggle microphone:</label>
-          <button id="spkBtn" disabled><img id="micOn" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOn.svg"><img id="micOff" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOff.svg"></button>
+          <button id="spkBtn" disabled autocomplete="off"><img id="micOn" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOn.svg"><img id="micOff" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOff.svg"></button>
         </div>
         <div>
           <label for="uploadBtn">Upload audio:</label>
-          <input type="file" id="uploadBtn" disabled multiple>
-          <button id="processBtn" disabled>Process</button>
+          <input type="file" id="uploadBtn" disabled multiple autocomplete="off">
+          <button id="processBtn" disabled autocomplete="off">Process</button>
         </div>
         <div>
           <label for="clrBtn">Result text:</label>
@@ -141,29 +148,29 @@
     <script>
     document.addEventListener("DOMContentLoaded", async () => {
     let cacheTbl = document.getElementsByTagName("tbody")[0];
-    let cacheTblDiv = document.getElementById("cacheTbl");
-    let cacheBtn = document.getElementById("cacheBtn");
-    let langPick = document.getElementById("langPick");
-    let loadBtn = document.getElementById("loadBtn");
-    let uploadBtn = document.getElementById("uploadBtn");
-    let processBtn = document.getElementById("processBtn");
-    let spkBtn = document.getElementById("spkBtn");
-    let clrBtn = document.getElementById("clrBtn");
-    let micOn = document.getElementById("micOn");
-    let micOff = document.getElementById("micOff");
-    let resultDiv = document.getElementById("result");
+    let byID = document.getElementById.bind(document);
+    let cacheTblDiv = byID("cacheTbl");
+    let cacheBtn = byID("cacheBtn");
+    let langPick = byID("langPick");
+    let loadBtn = byID("loadBtn");
+    let uploadBtn = byID("uploadBtn");
+    let processBtn = byID("processBtn");
+    let spkBtn = byID("spkBtn");
+    let clrBtn = byID("clrBtn");
+    let micOn = byID("micOn");
+    let micOff = byID("micOff");
+    let resultDiv = byID("result");
     let partialSpn = resultDiv.lastChild;
     let opfs = await navigator.storage.getDirectory();
     let Vosklet = await loadVosklet();
-    let ctx = new AudioContext({sampleRate: 16000, sinkId: {type: "none"}, latencyHint: "interactive"});
+    let ctx = new AudioContext({sinkId: {type: "none"}, latencyHint: "interactive"});
     let micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
       video: false,
       audio: {
         echoCancellation: true,
         noiseSuppression: true,
-        channelCount: 1,
-        sampleRate: 16000
-      },
+        channelCount: 1
+      }
     }));
     let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
     let model, recognizer, cachedModels = "";
@@ -240,7 +247,7 @@
       }
       model = await Vosklet.createModel(URL, path, id);
       updatecacheTbl(path, id);
-      recognizer = await Vosklet.createRecognizer(model, 16000);
+      recognizer = await Vosklet.createRecognizer(model, ctx.sampleRate);
       recognizer.addEventListener("result", onResult);
       recognizer.addEventListener("partialResult", onPartial);
       loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
