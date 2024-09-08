@@ -41,7 +41,6 @@
         min-height: 1.56rem;
       }
       #result > span {
-        white-space: normal;
         color: grey;
       }
       #flexbox {
@@ -147,8 +146,8 @@
     </div>
     <script>
     document.addEventListener("DOMContentLoaded", async () => {
-    let cacheTbl = document.getElementsByTagName("tbody")[0];
     let byID = document.getElementById.bind(document);
+    let cacheTbl = document.getElementsByTagName("tbody")[0];
     let cacheTblDiv = byID("cacheTbl");
     let cacheBtn = byID("cacheBtn");
     let langPick = byID("langPick");
@@ -174,38 +173,30 @@
     }));
     let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
     let model, recognizer, cachedModels = "";
-    let onPartial = ev => {
-      partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`;
-    }
+    let onPartial = ev => partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`;
     let onResult = ev => {
       partialSpn.textContent = "";
       resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
     }
     for await (let [name, handle] of opfs.entries()) {
-      let id = await (await (await handle.getFileHandle("id")).getFile()).text()
-      cachedModels += `<tr><td>${name}</td><td>${id}</td><td class="delete">[x]</td></tr>`;
+      let id = await (await (await handle.getFileHandle("id")).getFile()).text();
+      cachedModels += `<tr><td>${name}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
     }
     cacheTbl.innerHTML += cachedModels;
     async function onDelete() {
       let path = this.parentNode.firstChild.textContent;
-      await opfs.removeEntry(path, { recursive : true });
+      await opfs.removeEntry(path, { recursive: true });
       cacheTbl.removeChild(this.parentNode);
     }
-    for(let deleteBtn of document.getElementsByClassName("delete")) {
-      deleteBtn.addEventListener("click", onDelete, { once : true });
-    }
+    for(let deleteBtn of document.getElementsByClassName("delete")) deleteBtn.addEventListener("click", onDelete, { once: true });
+
     let updatecacheTbl = (path, id) => {
-      for(let row of cacheTbl.childNodes) {
-        if(path == row.firstChild.textContent) return;
-      }
-      cacheTbl.innerHTML += `<tr><td>${path}</td><td>${id}</td><td class="delete">[x]</td></tr>`;
+      for(let row of cacheTbl.childNodes) if(path == row.firstChild.textContent) return;
+      cacheTbl.innerHTML += `<tr><td>${path}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
       cacheTbl.lastChild.lastChild.addEventListener("click", onDelete, { once : true });
     }
     transferer.port.onmessage = ev => recognizer.acceptWaveform(ev.data);
-    cacheBtn.onchange = () => {
-      if(cacheBtn.checked) cacheTblDiv.style.display = "block";
-      else cacheTblDiv.style.display = "none";
-    }
+    cacheBtn.onchange = () => cacheTblDiv.style.display = cacheBtn.checked ? "block" : "none";
     clrBtn.onclick = () => resultDiv.textContent = "";
     processBtn.onclick = async () => {
       for(let file of uploadBtn.files) {
