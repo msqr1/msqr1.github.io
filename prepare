@@ -1,0 +1,17 @@
+#!/bin/bash
+GLOBIGNORE=1
+
+for file in *; 
+do
+  if [ -f "$file" ] || [ ! -d "$file/$1" ]; then
+    rm -rf "$file"
+    continue
+  fi
+  (
+    cd "$file" &&
+    find . '!' -path "./$1*" '!' -path . -delete &&
+    mv "$1"/* . &&
+    rmdir "$1"
+  )
+done
+
