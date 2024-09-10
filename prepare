@@ -1,8 +1,10 @@
 #!/bin/bash
 GLOBIGNORE=1
+exclusion="_headers"
 
 for file in *; 
 do
+  if [[ "$exclusion" =~ "$file" ]]; then continue; fi
   if [ -f "$file" ] || [ ! -d "$file/$1" ]; then
     rm -rf "$file"
     continue

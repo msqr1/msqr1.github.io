@@ -31,5 +31,5 @@ jobs:
         with:
           path : '.'
       - name: Deploy
-        uses: actions/actions/deploy-pages@v4
+        uses: actions/deploy-pages@v4
 
