@@ -4,7 +4,7 @@
   <title>Vosklet Demo</title>
   <meta name="description" content="Lightweight and fast automatic speech recognition right in the browser! Available in 20 languages">
   <head>
-    <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@1.1.6/Examples/Vosklet.js" defer crossorigin></script>
+    <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@1.2.0/Examples/Vosklet.js" defer crossorigin></script>
     <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico" crossorigin>
     <style>
       body {
@@ -81,7 +81,7 @@
     </style>
   </head>
   <body>
-    <h1>Vosklet Browser ASR Demo (v1.1.6)</h1>
+    <h1>Vosklet Browser ASR Demo (v1.2.0)</h1>
     <div id="info"><a href="https://github.com/msqr1/Vosklet">Github Repository</a> (Give a 🌟 if you enjoy!)</div>
     <div id="flexbox">
       <div>
@@ -147,46 +147,38 @@
     </div>
     <script>
     document.addEventListener("DOMContentLoaded", async () => {
-    let byID = document.getElementById.bind(document);
+    let byId = id => document.getElementById(id)
     let cacheTbl = document.getElementsByTagName("tbody")[0];
-    let cacheTblDiv = byID("cacheTbl");
-    let cacheBtn = byID("cacheBtn");
-    let langPick = byID("langPick");
-    let loadBtn = byID("loadBtn");
-    let uploadBtn = byID("uploadBtn");
-    let processBtn = byID("processBtn");
-    let spkBtn = byID("spkBtn");
-    let clrBtn = byID("clrBtn");
-    let micOn = byID("micOn");
-    let micOff = byID("micOff");
-    let resultDiv = byID("result");
+    let cacheTblDiv = byId("cacheTbl");
+    let cacheBtn = byId("cacheBtn");
+    let langPick = byId("langPick");
+    let loadBtn = byId("loadBtn");
+    let uploadBtn = byId("uploadBtn");
+    let processBtn = byId("processBtn");
+    let spkBtn = byId("spkBtn");
+    let clrBtn = byId("clrBtn");
+    let micOn = byId("micOn");
+    let micOff = byId("micOff");
+    let resultDiv = byId("result");
     let partialSpn = resultDiv.lastChild;
-    let opfs = await navigator.storage.getDirectory();
+    let OPFSRoot = await navigator.storage.getDirectory();
     let Vosklet = await loadVosklet();
     let ctx = new AudioContext({sinkId: {type: "none"}, latencyHint: "interactive"});
-    let micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
-      video: false,
-      audio: {
-        echoCancellation: true,
-        noiseSuppression: true,
-        channelCount: 1
-      }
-    }));
     let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
-    let model, recognizer, cachedModels = "";
+    let micNode, model, recognizer, cachedModels = "";
     let onPartial = ev => partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`;
     let onResult = ev => {
       partialSpn.textContent = "";
       resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
     }
-    for await (let [name, handle] of opfs.entries()) {
+    for await (let [name, handle] of OPFSRoot.entries()) {
       let id = await (await (await handle.getFileHandle("id")).getFile()).text();
       cachedModels += `<tr><td>${name}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
     }
     cacheTbl.innerHTML += cachedModels;
     async function onDelete() {
       let path = this.parentNode.firstChild.textContent;
-      await opfs.removeEntry(path, { recursive: true });
+      await OPFSRoot.removeEntry(path, { recursive: true });
       cacheTbl.removeChild(this.parentNode);
     }
     for(let deleteBtn of document.getElementsByClassName("delete")) deleteBtn.addEventListener("click", onDelete, { once: true });
@@ -206,20 +198,29 @@
       }
       uploadBtn.value = null;
     }
-    spkBtn.onclick = async () => {
-      if(micOn.style.display == "block") {
-        micOn.style.display = "none";
-        micOff.style.display = "block";
-        await ctx.suspend();
-      }
-      else {
-        micOff.style.display = "none";
-        micOn.style.display = "block";
-        await ctx.resume();
-      }
-    }
-    loadBtn.onclick = async () => {
+    spkBtn.addEventListener("click", async () => {
+      micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
+        video: false,
+        audio: {
+          channelCount: 1
+        }
+      }));
       micNode.connect(transferer);
+      spkBtn.onclick = async () => {
+        if(micOn.style.display == "block") {
+          micOn.style.display = "none";
+          micOff.style.display = "block";
+          await ctx.suspend();
+        }
+        else {
+          micOff.style.display = "none";
+          micOn.style.display = "block";
+          await ctx.resume();
+        }
+      }
+      spkBtn.onclick()
+    }, { once: true });
+    loadBtn.onclick = async () => {
       if(micOn.style.display == "block") {
         micOn.style.display = "none";
         micOff.style.display = "block";
@@ -234,7 +235,7 @@
       if (model != null) {
         recognizer.removeEventListener("result", onResult);
         recognizer.removeEventListener("partialResult", onPartial);
-        await recognizer.delete();
+        await recognizer.delete(false);
         model.delete();
       }
       model = await Vosklet.createModel(URL, path, id);
