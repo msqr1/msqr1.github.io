@@ -147,7 +147,7 @@
     </div>
     <script>
     document.addEventListener("DOMContentLoaded", async () => {
-    let byId = document.getElementById(id).bind(document);
+    let byId = document.getElementById.bind(document);
     let cacheTbl = document.getElementsByTagName("tbody")[0];
     let cacheTblDiv = byId("cacheTbl");
     let cacheBtn = byId("cacheBtn");
