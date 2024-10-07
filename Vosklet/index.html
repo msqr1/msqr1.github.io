@@ -4,8 +4,8 @@
   <title>Vosklet Demo</title>
   <meta name="description" content="Lightweight and fast automatic speech recognition right in the browser! Available in 20 languages">
   <head>
-    <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@1.2.0/Examples/Vosklet.js" defer crossorigin></script>
-    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io@d09f835/favicon.ico" crossorigin>
+    <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@ed56baa/Examples/Vosklet.js" defer crossorigin></script>
+    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico" crossorigin>
     <style>
       body {
         font-size: 1.3rem;
@@ -81,7 +81,7 @@
     </style>
   </head>
   <body>
-    <h1>Vosklet Browser ASR Demo (v1.2.0)</h1>
+    <h1>Vosklet Browser ASR Demo (v1.1.6)</h1>
     <div id="info"><a href="https://github.com/msqr1/Vosklet">Github Repository</a> (Give a 🌟 if you enjoy!)</div>
     <div id="flexbox">
       <div>
@@ -118,7 +118,7 @@
         </div>
         <div>
           <label for="spkBtn">Toggle microphone:</label>
-          <button id="spkBtn" disabled autocomplete="off"><img id="micOn" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io@b0a4918/Vosklet/micOn.svg" crossorigin><img id="micOff" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/@b0a4918/Vosklet/micOff.svg" crossorigin></button>
+          <button id="spkBtn" disabled autocomplete="off"><img id="micOn" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOn.svg" crossorigin><img id="micOff" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOff.svg" crossorigin></button>
         </div>
         <div>
           <label for="uploadBtn">Upload audio:</label>
@@ -147,7 +147,7 @@
     </div>
     <script>
     document.addEventListener("DOMContentLoaded", async () => {
-    let byId = id => document.getElementById(id)
+    let byId = document.getElementById(id).bind(document);
     let cacheTbl = document.getElementsByTagName("tbody")[0];
     let cacheTblDiv = byId("cacheTbl");
     let cacheBtn = byId("cacheBtn");
@@ -161,8 +161,8 @@
     let micOff = byId("micOff");
     let resultDiv = byId("result");
     let partialSpn = resultDiv.lastChild;
-    let OPFSRoot = await navigator.storage.getDirectory();
     let Vosklet = await loadVosklet();
+    let mdlCache = await Vosklet.getModelCache();
     let ctx = new AudioContext({sinkId: {type: "none"}, latencyHint: "interactive"});
     let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
     let micNode, model, recognizer, cachedModels = "";
@@ -171,14 +171,15 @@
       partialSpn.textContent = "";
       resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
     }
-    for await (let [name, handle] of OPFSRoot.entries()) {
-      let id = await (await (await handle.getFileHandle("id")).getFile()).text();
-      cachedModels += `<tr><td>${name}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
+    let reqs = await mdlCache.keys();
+    for(let req of reqs) {
+      let info = req.url.split('?');
+      cachedModels += `<tr><td>${info[0].split('/').pop()}</td><td>${info[1]}</td><td class=delete>[x]</td></tr>`;
     }
     cacheTbl.innerHTML += cachedModels;
     async function onDelete() {
       let path = this.parentNode.firstChild.textContent;
-      await OPFSRoot.removeEntry(path, { recursive: true });
+      await mdlCache.delete(path, { ignoreSearch: true });
       cacheTbl.removeChild(this.parentNode);
     }
     for(let deleteBtn of document.getElementsByClassName("delete")) deleteBtn.addEventListener("click", onDelete, { once: true });
@@ -235,7 +236,7 @@
       if (model != null) {
         recognizer.removeEventListener("result", onResult);
         recognizer.removeEventListener("partialResult", onPartial);
-        await recognizer.delete(false);
+        await recognizer.delete();
         model.delete();
       }
       model = await Vosklet.createModel(URL, path, id);
