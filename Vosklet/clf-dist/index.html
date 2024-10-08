@@ -146,7 +146,7 @@
       </div>
     </div>
     <script>
-    document.addEventListener('DOMContentLoaded', async () => {
+    let fn = async () => {
     let byId = document.getElementById.bind(document);
     console.count();
     let cacheTbl = document.getElementsByTagName('tbody')[0];
@@ -301,7 +301,9 @@
       loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
     }
     console.count();  
-    });
+    }
+    if(document.readyState !== 'loading') fn();
+    else document.addEventListener("DOMContentLoaded", fn, { once: true });
     </script>
   </body>
 </html>
