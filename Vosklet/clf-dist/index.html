@@ -3,9 +3,15 @@
   <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1'>
   <title>Vosklet Demo</title>
   <meta name='description' content='Lightweight and fast automatic speech recognition right in the browser! Available in 20 languages'>
+  <script>
+    console.count('Parsing')
+  </script>
   <head>
     <script src='https://cdn.jsdelivr.net/gh/msqr1/Vosklet@ed56baa/Examples/Vosklet.js' defer crossorigin></script>
     <link rel='icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico' crossorigin>
+    <script>
+      console.count('Parsing')
+    </script>
     <style>
       body {
         font-size: 1.3rem;
@@ -61,7 +67,7 @@
       }
       #flexbox > div > div {
         margin: 0 0 1.2rem 0;
-      }
+      } 
       table {
         background: #000;
         width: 100%;
@@ -79,10 +85,19 @@
         background: #ffbdbd;
       }
     </style>
+    <script>
+      console.count('Parsing')
+    </script>
   </head>
+  <script>
+    console.count('Parsing')
+  </script>
   <body>
     <h1>Vosklet Browser ASR Demo (v1.1.6)</h1>
     <div id='info'><a href='https://github.com/msqr1/Vosklet'>Github Repository</a> (Give a 🌟 if you enjoy!)</div>
+    <script>
+      console.count('Parsing')
+    </script>
     <div id='flexbox'>
       <div>
         <h3>Speech Recognition</h3>
@@ -131,6 +146,9 @@
         </div>
         <div id='result'><span></span></div>
       </div>
+      <script>
+        console.count('Parsing')
+      </script>
       <div id='cacheTbl'>
         <h3>Cached Models</h3>
         <table>
@@ -146,164 +164,174 @@
       </div>
     </div>
     <script>
-    let fn = async () => {
-    let byId = document.getElementById.bind(document);
-    console.count();
-    let cacheTbl = document.getElementsByTagName('tbody')[0];
-    console.count();
-    let cacheTblDiv = byId('cacheTbl');
-    console.count();
-    let cacheBtn = byId('cacheBtn');
-    console.count();
-    let langPick = byId('langPick');
-    console.count();
-    let loadBtn = byId('loadBtn');
-    console.count();
-    let uploadBtn = byId('uploadBtn');
-    console.count();
-    let processBtn = byId('processBtn');
-    console.count();
-    let spkBtn = byId('spkBtn');
-    console.count();
-    let clrBtn = byId('clrBtn');
-    console.count();
-    let micOn = byId('micOn');
-    console.count();
-    let micOff = byId('micOff');
-    console.count();
-    let resultDiv = byId('result');
-    console.count();
-    let partialSpn = resultDiv.lastChild;
-    console.count();
-    let Vosklet = await loadVosklet();
-    console.count();
-    let mdlCache = await Vosklet.getModelCache();
-    console.count();
-    let ctx = new AudioContext({sinkId: {type: 'none'}, latencyHint: 'interactive'});
-    console.count();
-    let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
-    console.count();
-    let micNode, model, recognizer, cachedModels = '';
-    console.count();
-    let onPartial = ev => {
-      console.count('onPartial');
-      partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`
-    };
-    console.count();
-    let onResult = ev => {
-      console.count('onResult');
-      partialSpn.textContent = '';
-      resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
-    }
-    console.count();
-    let reqs = await mdlCache.keys();
-    console.count();
-    for(let req of reqs) {
-      console.count('cacheInfo');
-      let info = req.url.split('?');
-      cachedModels += `<tr><td>${info[0].split('/').pop()}</td><td>${info[1]}</td><td class=delete>[x]</td></tr>`;
-    }
-    console.count();
-    cacheTbl.innerHTML += cachedModels;
-    console.count();
-    async function onDelete() {
-      console.count('onDelete');
-      let path = this.parentNode.firstChild.textContent;
-      await mdlCache.delete(path, { ignoreSearch: true });
-      cacheTbl.removeChild(this.parentNode);
-    }
-    console.count();
-    for(let deleteBtn of document.getElementsByClassName('delete')) {
-      console.count('Activate deleteBtn');
-      deleteBtn.addEventListener('click', onDelete, { once: true });
-    };
-    console.count();
-    let updateCacheTbl = (path, id) => {
-      console.count('updateCacheTbl');
-      for(let row of cacheTbl.childNodes) if(path == row.firstChild.textContent) return;
-      cacheTbl.innerHTML += `<tr><td>${path}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
-      cacheTbl.lastChild.lastChild.addEventListener('click', onDelete, { once : true });
-    }
-    console.count();
-    transferer.port.onmessage = ev => {
-      console.count('transferer.port.onmessage'); 
-      recognizer.acceptWaveform(ev.data); 
-    }
-    console.count();
-    cacheBtn.onchange = () => {
-      console.count('cacheBtn.onchange')
-      cacheTblDiv.style.display = cacheBtn.checked ? 'block' : 'none';
-    }
-    console.count();
-    clrBtn.onclick = () => {
-      console.count('clrBtn.onclick');
-      resultDiv.textContent = '';
-    }
-    console.count();
-    processBtn.onclick = async () => {
-      console.count('processBtn.onclick');
-      for(let file of uploadBtn.files) {
-        let audioBuffer = await ctx.decodeAudioData(await file.arrayBuffer());
-        recognizer.acceptWaveform(audioBuffer.getChannelData(0));
+      console.count('Parsing')
+    </script>
+    <script>
+      console.log("In script tag");
+      let fn = async () => {
+      let byId = document.getElementById.bind(document);
+      console.count();
+      let cacheTbl = document.getElementsByTagName('tbody')[0];
+      console.count();
+      let cacheTblDiv = byId('cacheTbl');
+      console.count();
+      let cacheBtn = byId('cacheBtn');
+      console.count();
+      let langPick = byId('langPick');
+      console.count();
+      let loadBtn = byId('loadBtn');
+      console.count();
+      let uploadBtn = byId('uploadBtn');
+      console.count();
+      let processBtn = byId('processBtn');
+      console.count();
+      let spkBtn = byId('spkBtn');
+      console.count();
+      let clrBtn = byId('clrBtn');
+      console.count();
+      let micOn = byId('micOn');
+      console.count();
+      let micOff = byId('micOff');
+      console.count();
+      let resultDiv = byId('result');
+      console.count();
+      let partialSpn = resultDiv.lastChild;
+      console.count();
+      let Vosklet = await loadVosklet();
+      console.count();
+      let mdlCache = await Vosklet.getModelCache();
+      console.count();
+      let ctx = new AudioContext({sinkId: {type: 'none'}, latencyHint: 'interactive'});
+      console.count();
+      let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
+      console.count();
+      let micNode, model, recognizer, cachedModels = '';
+      console.count();
+      let onPartial = ev => {
+        console.count('onPartial');
+        partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`
+      };
+      console.count();
+      let onResult = ev => {
+        console.count('onResult');
+        partialSpn.textContent = '';
+        resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
       }
-      uploadBtn.value = null;
-    }
-    console.count();
-    spkBtn.addEventListener('click', async () => {
-      console.count('spkBtn.onclick')
-      micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: {
-          channelCount: 1
+      console.count();
+      let reqs = await mdlCache.keys();
+      console.count();
+      for(let req of reqs) {
+        console.count('cacheInfo');
+        let info = req.url.split('?');
+        cachedModels += `<tr><td>${info[0].split('/').pop()}</td><td>${info[1]}</td><td class=delete>[x]</td></tr>`;
+      }
+      console.count();
+      cacheTbl.innerHTML += cachedModels;
+      console.count();
+      async function onDelete() {
+        console.count('onDelete');
+        let path = this.parentNode.firstChild.textContent;
+        await mdlCache.delete(path, { ignoreSearch: true });
+        cacheTbl.removeChild(this.parentNode);
+      }
+      console.count();
+      for(let deleteBtn of document.getElementsByClassName('delete')) {
+        console.count('Activate deleteBtn');
+        deleteBtn.addEventListener('click', onDelete, { once: true });
+      };
+      console.count();
+      let updateCacheTbl = (path, id) => {
+        console.count('updateCacheTbl');
+        for(let row of cacheTbl.childNodes) if(path == row.firstChild.textContent) return;
+        cacheTbl.innerHTML += `<tr><td>${path}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
+        cacheTbl.lastChild.lastChild.addEventListener('click', onDelete, { once : true });
+      }
+      console.count();
+      transferer.port.onmessage = ev => {
+        console.count('transferer.port.onmessage'); 
+        recognizer.acceptWaveform(ev.data); 
+      }
+      console.count();
+      cacheBtn.onchange = () => {
+        console.count('cacheBtn.onchange')
+        cacheTblDiv.style.display = cacheBtn.checked ? 'block' : 'none';
+      }
+      console.count();
+      clrBtn.onclick = () => {
+        console.count('clrBtn.onclick');
+        resultDiv.textContent = '';
+      }
+      console.count();
+      processBtn.onclick = async () => {
+        console.count('processBtn.onclick');
+        for(let file of uploadBtn.files) {
+          let audioBuffer = await ctx.decodeAudioData(await file.arrayBuffer());
+          recognizer.acceptWaveform(audioBuffer.getChannelData(0));
         }
-      }));
-      micNode.connect(transferer);
-      spkBtn.onclick = async () => {
+        uploadBtn.value = null;
+      }
+      console.count();
+      spkBtn.addEventListener('click', async () => {
         console.count('spkBtn.onclick')
+        micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
+          video: false,
+          audio: {
+            channelCount: 1
+          }
+        }));
+        micNode.connect(transferer);
+        spkBtn.onclick = async () => {
+          console.count('spkBtn.onclick')
+          if(micOn.style.display == 'block') {
+            micOn.style.display = 'none';
+            micOff.style.display = 'block';
+            await ctx.suspend();
+          }
+          else {
+            micOff.style.display = 'none';
+            micOn.style.display = 'block';
+            await ctx.resume();
+          }
+        }
+        spkBtn.onclick()
+      }, { once: true });
+      console.count();
+      loadBtn.onclick = async () => {
+        console.count('loadBtn.onclick')
         if(micOn.style.display == 'block') {
           micOn.style.display = 'none';
           micOff.style.display = 'block';
-          await ctx.suspend();
+        };
+        await ctx.suspend();
+        loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = true;
+        let id = langPick.value;
+        let path = langPick.selectedOptions[0].text;
+        let fromVbr = id.endsWith('_');
+        if(fromVbr) id = id.slice(0, -1);
+        let URL = `https://${fromVbr ? 'ccoreilly.github.io/vosk-browser' : 'msqr1.github.io/Vosklet'}/models/${id}.tar.gz`;
+        if (model != null) {
+          recognizer.removeEventListener('result', onResult);
+          recognizer.removeEventListener('partialResult', onPartial);
+          await recognizer.delete();
+          model.delete();
         }
-        else {
-          micOff.style.display = 'none';
-          micOn.style.display = 'block';
-          await ctx.resume();
-        }
+        model = await Vosklet.createModel(URL, path, id);
+        updateCacheTbl(path, id);
+        recognizer = await Vosklet.createRecognizer(model, ctx.sampleRate);
+        recognizer.addEventListener('result', onResult);
+        recognizer.addEventListener('partialResult', onPartial);
+        loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
       }
-      spkBtn.onclick()
-    }, { once: true });
-    console.count();
-    loadBtn.onclick = async () => {
-      console.count('loadBtn.onclick')
-      if(micOn.style.display == 'block') {
-        micOn.style.display = 'none';
-        micOff.style.display = 'block';
-      };
-      await ctx.suspend();
-      loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = true;
-      let id = langPick.value;
-      let path = langPick.selectedOptions[0].text;
-      let fromVbr = id.endsWith('_');
-      if(fromVbr) id = id.slice(0, -1);
-      let URL = `https://${fromVbr ? 'ccoreilly.github.io/vosk-browser' : 'msqr1.github.io/Vosklet'}/models/${id}.tar.gz`;
-      if (model != null) {
-        recognizer.removeEventListener('result', onResult);
-        recognizer.removeEventListener('partialResult', onPartial);
-        await recognizer.delete();
-        model.delete();
+      console.count();  
       }
-      model = await Vosklet.createModel(URL, path, id);
-      updateCacheTbl(path, id);
-      recognizer = await Vosklet.createRecognizer(model, ctx.sampleRate);
-      recognizer.addEventListener('result', onResult);
-      recognizer.addEventListener('partialResult', onPartial);
-      loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
-    }
-    console.count();  
-    }
-    if(document.readyState !== 'loading') fn();
-    else document.addEventListener("DOMContentLoaded", fn, { once: true });
+      if(document.readyState !== 'loading') {
+        console.log('DomContentLoaded fired');
+        fn();
+      }
+      else {
+        console.log('Binding onto DomContentLoaded');
+        document.addEventListener("DOMContentLoaded", fn, { once: true });
+      }
     </script>
   </body>
 </html>
