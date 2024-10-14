@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en">
-  <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
+<html lang='en'>
+  <meta charset='UTF-8' name='viewport' content='width=device-width, initial-scale=1'>
   <title>Vosklet Demo</title>
-  <meta name="description" content="Lightweight and fast automatic speech recognition right in the browser! Available in 20 languages">
+  <meta name='description' content='Lightweight and fast automatic speech recognition right in the browser! Available in 20 languages'>
   <head>
-    <script src="https://cdn.jsdelivr.net/gh/msqr1/Vosklet@ed56baa/Examples/Vosklet.js" defer crossorigin></script>
-    <link rel="icon" type="image/x-icon" href="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico" crossorigin>
+    <script src='https://cdn.jsdelivr.net/gh/msqr1/Vosklet@1.2.1/Examples/Vosklet.js' defer crossorigin></script>
+    <link rel='icon' type='image/x-icon' href='https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/favicon.ico' crossorigin>
     <style>
       body {
         font-size: 1.3rem;
@@ -81,57 +81,57 @@
     </style>
   </head>
   <body>
-    <h1>Vosklet Browser ASR Demo (v1.1.6)</h1>
-    <div id="info"><a href="https://github.com/msqr1/Vosklet">Github Repository</a> (Give a 🌟 if you enjoy!)</div>
-    <div id="flexbox">
+    <h1>Vosklet Browser ASR Demo (v1.2.1)</h1>
+    <div id='info'><a href='https://github.com/msqr1/Vosklet'>Github Repository</a> (Give a 🌟 if you enjoy!)</div>
+    <div id='flexbox'>
       <div>
         <h3>Speech Recognition</h3>
         <div>
-          <label for="langPick">Language:</label>
-          <select id="langPick">
-            <option value="vosk-model-small-en-us-0.15_">English</option>
-            <option value="vosk-model-small-en-in-0.4_">Indian English</option>
-            <option value="vosk-model-small-cn-0.3_">Chinese</option>
-            <option value="vosk-model-small-ru-0.4_">Russian</option>
-            <option value="vosk-model-small-fr-pguyot-0.3_">French</option>
-            <option value="vosk-model-small-de-0.15_">German</option>
-            <option value="vosk-model-small-ca-0.4_">Catalan</option>
-            <option value="vosk-model-small-pt-0.3_">Portuguese</option>
-            <option value="vosk-model-small-tr-0.3_">Turkish</option>
-            <option value="vosk-model-small-it-0.4_">Italian</option>
-            <option value="vosk-model-malayalam-bigram_">Malayam</option>
-            <option value="vosk-model-small-es-0.42">Spanish</option>
-            <option value="vosk-model-small-vn-0.4">Vietnamese</option>
-            <option value="vosk-model-small-nl-0.22">Dutch</option>
-            <option value="vosk-model-small-fa-0.5">Farsi</option>
-            <option value="vosk-model-small-kz-0.15">Kazakh</option>
-            <option value="vosk-model-small-ja-0.22">Japanese</option>
-            <option value="vosk-model-small-hi-0.22">Hindi</option>
-            <option value="vosk-model-small-cs-0.4-rhasspy">Czech</option>
-            <option value="vosk-model-small-uz-0.22">Uzbek</option>
-            <option value="vosk-model-small-ko-0.22">Korean</option>
-            <option value="vosk-model-small-tg-0.22">Tajik</option>
+          <label for='langPick'>Language:</label>
+          <select id='langPick'>
+            <option value='vosk-model-small-en-us-0.15_'>English</option>
+            <option value='vosk-model-small-en-in-0.4_'>Indian English</option>
+            <option value='vosk-model-small-cn-0.3_'>Chinese</option>
+            <option value='vosk-model-small-ru-0.4_'>Russian</option>
+            <option value='vosk-model-small-fr-pguyot-0.3_'>French</option>
+            <option value='vosk-model-small-de-0.15_'>German</option>
+            <option value='vosk-model-small-ca-0.4_'>Catalan</option>
+            <option value='vosk-model-small-pt-0.3_'>Portuguese</option>
+            <option value='vosk-model-small-tr-0.3_'>Turkish</option>
+            <option value='vosk-model-small-it-0.4_'>Italian</option>
+            <option value='vosk-model-malayalam-bigram_'>Malayam</option>
+            <option value='vosk-model-small-es-0.42'>Spanish</option>
+            <option value='vosk-model-small-vn-0.4'>Vietnamese</option>
+            <option value='vosk-model-small-nl-0.22'>Dutch</option>
+            <option value='vosk-model-small-fa-0.5'>Farsi</option>
+            <option value='vosk-model-small-kz-0.15'>Kazakh</option>
+            <option value='vosk-model-small-ja-0.22'>Japanese</option>
+            <option value='vosk-model-small-hi-0.22'>Hindi</option>
+            <option value='vosk-model-small-cs-0.4-rhasspy'>Czech</option>
+            <option value='vosk-model-small-uz-0.22'>Uzbek</option>
+            <option value='vosk-model-small-ko-0.22'>Korean</option>
+            <option value='vosk-model-small-tg-0.22'>Tajik</option>
           </select>
-          <button id="loadBtn">Load</button>
-          <label for="cacheBtn">Show model cache: </label>
-          <input id="cacheBtn" type="checkbox" autocomplete="off">
+          <button id='loadBtn'>Load</button>
+          <label for='cacheBtn'>Show model cache: </label>
+          <input id='cacheBtn' type='checkbox' autocomplete='off'>
         </div>
         <div>
-          <label for="spkBtn">Toggle microphone:</label>
-          <button id="spkBtn" disabled autocomplete="off"><img id="micOn" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOn.svg" crossorigin><img id="micOff" src="https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOff.svg" crossorigin></button>
+          <label for='spkBtn'>Toggle microphone:</label>
+          <button id='spkBtn' disabled autocomplete='off'><img id='micOn' src='https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOn.svg' crossorigin><img id='micOff' src='https://cdn.jsdelivr.net/gh/msqr1/msqr1.github.io/Vosklet/micOff.svg' crossorigin></button>
         </div>
         <div>
-          <label for="uploadBtn">Upload audio:</label>
-          <input type="file" id="uploadBtn" disabled multiple autocomplete="off">
-          <button id="processBtn" disabled autocomplete="off">Process</button>
+          <label for='uploadBtn'>Upload audio:</label>
+          <input type='file' id='uploadBtn' disabled multiple autocomplete='off'>
+          <button id='processBtn' disabled autocomplete='off'>Process</button>
         </div>
         <div>
-          <label for="clrBtn">Result text:</label>
-          <button id="clrBtn">Clear</button>
+          <label for='clrBtn'>Result text:</label>
+          <button id='clrBtn'>Clear</button>
         </div>
-        <div id="result"><span></span></div>
+        <div id='result'><span></span></div>
       </div>
-      <div id="cacheTbl">
+      <div id='cacheTbl'>
         <h3>Cached Models</h3>
         <table>
           <thead>
@@ -146,106 +146,108 @@
       </div>
     </div>
     <script>
-    document.addEventListener("DOMContentLoaded", async () => {
-    let byId = document.getElementById.bind(document);
-    let cacheTbl = document.getElementsByTagName("tbody")[0];
-    let cacheTblDiv = byId("cacheTbl");
-    let cacheBtn = byId("cacheBtn");
-    let langPick = byId("langPick");
-    let loadBtn = byId("loadBtn");
-    let uploadBtn = byId("uploadBtn");
-    let processBtn = byId("processBtn");
-    let spkBtn = byId("spkBtn");
-    let clrBtn = byId("clrBtn");
-    let micOn = byId("micOn");
-    let micOff = byId("micOff");
-    let resultDiv = byId("result");
-    let partialSpn = resultDiv.lastChild;
-    let Vosklet = await loadVosklet();
-    let mdlCache = await Vosklet.getModelCache();
-    let ctx = new AudioContext({sinkId: {type: "none"}, latencyHint: "interactive"});
-    let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
-    let micNode, model, recognizer, cachedModels = "";
-    let onPartial = ev => partialSpn.textContent = ` ${JSON.parse(ev.detail).partial}`;
-    let onResult = ev => {
-      partialSpn.textContent = "";
-      resultDiv.textContent += ` ${JSON.parse(ev.detail).text}`;
-    }
-    let reqs = await mdlCache.keys();
-    for(let req of reqs) {
-      let info = req.url.split('?');
-      cachedModels += `<tr><td>${info[0].split('/').pop()}</td><td>${info[1]}</td><td class=delete>[x]</td></tr>`;
-    }
-    cacheTbl.innerHTML += cachedModels;
-    async function onDelete() {
-      let path = this.parentNode.firstChild.textContent;
-      await mdlCache.delete(path, { ignoreSearch: true });
-      cacheTbl.removeChild(this.parentNode);
-    }
-    for(let deleteBtn of document.getElementsByClassName("delete")) deleteBtn.addEventListener("click", onDelete, { once: true });
+      let startup = async () => {
+        let byId = document.getElementById.bind(document);
+        let cacheTbl = document.getElementsByTagName('tbody')[0];
+        let cacheTblDiv = byId('cacheTbl');
+        let cacheBtn = byId('cacheBtn');
+        let langPick = byId('langPick');
+        let loadBtn = byId('loadBtn');
+        let uploadBtn = byId('uploadBtn');
+        let processBtn = byId('processBtn');
+        let spkBtn = byId('spkBtn');
+        let clrBtn = byId('clrBtn');
+        let micOn = byId('micOn');
+        let micOff = byId('micOff');
+        let resultDiv = byId('result');
+        let partialSpn = resultDiv.lastChild;
+        let Vosklet = await loadVosklet();
+        let mdlCache = await Vosklet.getModelCache();
+        let ctx = new AudioContext({sinkId: {type: 'none'}, latencyHint: 'interactive'});
+        let transferer = await Vosklet.createTransferer(ctx, 128 * 150);
+        let micNode, model, recognizer, cachedModels = '';
+        let onPartial = ev => partialSpn.textContent = ' ' + JSON.parse(ev.detail).partial;
+        let onResult = ev => {
+          partialSpn.textContent = '';
+          resultDiv.textContent += ' ' + JSON.parse(ev.detail).text;
+        }
+        let reqs = await mdlCache.keys();
+        for(let req of reqs) {
+          let info = req.url.split('?');
+          cachedModels += '<tr><td>' + info[0].substring(info[0].lastIndexOf('/')) + '</td><td>' + info[1] +'</td><td class=delete>[x]</td></tr>';
+        }
+        cacheTbl.innerHTML += cachedModels;
+        async function onDelete() {
+          let path = this.parentNode.firstChild.textContent;
+          await mdlCache.delete(path, { ignoreSearch: true });
+          cacheTbl.removeChild(this.parentNode);
+        }
+        for(let deleteBtn of document.getElementsByClassName('delete')) deleteBtn.addEventListener('click', onDelete, { once: true });
 
-    let updatecacheTbl = (path, id) => {
-      for(let row of cacheTbl.childNodes) if(path == row.firstChild.textContent) return;
-      cacheTbl.innerHTML += `<tr><td>${path}</td><td>${id}</td><td class=delete>[x]</td></tr>`;
-      cacheTbl.lastChild.lastChild.addEventListener("click", onDelete, { once : true });
-    }
-    transferer.port.onmessage = ev => recognizer.acceptWaveform(ev.data);
-    cacheBtn.onchange = () => cacheTblDiv.style.display = cacheBtn.checked ? "block" : "none";
-    clrBtn.onclick = () => resultDiv.textContent = "";
-    processBtn.onclick = async () => {
-      for(let file of uploadBtn.files) {
-        let audioBuffer = await ctx.decodeAudioData(await file.arrayBuffer());
-        recognizer.acceptWaveform(audioBuffer.getChannelData(0));
-      }
-      uploadBtn.value = null;
-    }
-    spkBtn.addEventListener("click", async () => {
-      micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
-        video: false,
-        audio: {
-          channelCount: 1
+        let updatecacheTbl = (path, id) => {
+          for(let row of cacheTbl.childNodes) if(path == row.firstChild.textContent) return;
+          cacheTbl.innerHTML += '<tr><td>'+ path + '</td><td>' + id + '</td><td class=delete>[x]</td></tr>';
+          cacheTbl.lastChild.lastChild.addEventListener('click', onDelete, { once : true });
         }
-      }));
-      micNode.connect(transferer);
-      spkBtn.onclick = async () => {
-        if(micOn.style.display == "block") {
-          micOn.style.display = "none";
-          micOff.style.display = "block";
+        transferer.port.onmessage = ev => recognizer.acceptWaveform(ev.data);
+        cacheBtn.onchange = () => cacheTblDiv.style.display = cacheBtn.checked ? 'block' : 'none';
+        clrBtn.onclick = () => resultDiv.textContent = '';
+        processBtn.onclick = async () => {
+          for(let file of uploadBtn.files) {
+            let audioBuffer = await ctx.decodeAudioData(await file.arrayBuffer());
+            recognizer.acceptWaveform(audioBuffer.getChannelData(0));
+          }
+          uploadBtn.value = null;
+        }
+        spkBtn.addEventListener('click', async () => {
+          micNode = ctx.createMediaStreamSource(await navigator.mediaDevices.getUserMedia({
+            video: false,
+            audio: {
+              channelCount: 1
+            }
+          }));
+          micNode.connect(transferer);
+          spkBtn.onclick = async () => {
+            if(micOn.style.display == 'block') {
+              micOn.style.display = 'none';
+              micOff.style.display = 'block';
+              await ctx.suspend();
+            }
+            else {
+              micOff.style.display = 'none';
+              micOn.style.display = 'block';
+              await ctx.resume();
+            }
+          }
+          spkBtn.onclick()
+        }, { once: true });
+        loadBtn.onclick = async () => {
+          if(micOn.style.display == 'block') {
+            micOn.style.display = 'none';
+            micOff.style.display = 'block';
+          };
           await ctx.suspend();
-        }
-        else {
-          micOff.style.display = "none";
-          micOn.style.display = "block";
-          await ctx.resume();
-        }
-      }
-      spkBtn.onclick()
-    }, { once: true });
-    loadBtn.onclick = async () => {
-      if(micOn.style.display == "block") {
-        micOn.style.display = "none";
-        micOff.style.display = "block";
-      };
-      await ctx.suspend();
-      loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = true;
-      let id = langPick.value;
-      let path = langPick.selectedOptions[0].text;
-      let fromVbr = id.endsWith("_");
-      if(fromVbr) id = id.slice(0, -1);
-      let URL = `https://${fromVbr ? "ccoreilly.github.io/vosk-browser" : "msqr1.github.io/Vosklet"}/models/${id}.tar.gz`;
-      if (model != null) {
-        recognizer.removeEventListener("result", onResult);
-        recognizer.removeEventListener("partialResult", onPartial);
-        await recognizer.delete();
-        model.delete();
-      }
-      model = await Vosklet.createModel(URL, path, id);
-      updatecacheTbl(path, id);
-      recognizer = await Vosklet.createRecognizer(model, ctx.sampleRate);
-      recognizer.addEventListener("result", onResult);
-      recognizer.addEventListener("partialResult", onPartial);
-      loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
-    }});
+          loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = true;
+          let id = langPick.value;
+          let path = langPick.selectedOptions[0].text;
+          let fromVbr = id.endsWith('_');
+          if(fromVbr) id = id.slice(0, -1);
+          let URL = 'https://' + (fromVbr ? 'ccoreilly.github.io/vosk-browser' : 'msqr1.github.io/Vosklet') + '/models/' + id + '.tar.gz';
+          if (model != null) {
+            recognizer.removeEventListener('result', onResult);
+            recognizer.removeEventListener('partialResult', onPartial);
+            await recognizer.delete();
+            model.delete();
+          }
+          model = await Vosklet.createModel(URL, path, id);
+          updatecacheTbl(path, id);
+          recognizer = await Vosklet.createRecognizer(model, ctx.sampleRate);
+          recognizer.addEventListener('result', onResult);
+          recognizer.addEventListener('partialResult', onPartial);
+          loadBtn.disabled = uploadBtn.disabled = processBtn.disabled = spkBtn.disabled = false;
+      }}
+      if(document.readyState != 'loading') startup();
+      else document.addEventListener('DOMContentLoaded', startup);
     </script>
   </body>
 </html>
